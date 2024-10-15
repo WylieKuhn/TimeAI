@@ -53,7 +53,11 @@ def chat(prompt):
     with open(file_path, "w") as file:
         json.dump(events, file, indent=4)
         
-user_in = str(input("Enter A Scheduling Problem: "))
-chat(user_in)
+
+        
+user_in = st.text_area("Enter A Scheduling Problem")
+
+if st.button("Submit"):
+    chat(user_in)
 #load_events(file_path)
 

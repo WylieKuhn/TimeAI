@@ -3,6 +3,7 @@ import streamlit as st
 from streamlit_autorefresh import st_autorefresh
 import os
 import json
+from pages.prompt import chat
 
 refresh = st_autorefresh(interval=2000, limit=None)
 
@@ -24,8 +25,8 @@ calendar_options = {
         "center": "title",
         "right": "resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth",
     },
-    "slotMinTime": "06:00:00",
-    "slotMaxTime": "22:00:00",
+    "slotMinTime": "01:00:00",
+    "slotMaxTime": "23:00:00",
     "initialView": "dayGridMonth"
 }
 calendar_events = load_events()
@@ -46,3 +47,12 @@ custom_css="""
 
 calendar = calendar(events=calendar_events, options=calendar_options, custom_css=custom_css)
 st.write(calendar)
+
+user_input = st.text_area("Enter A Scheduling Problem")
+
+if st.button("Submit"):
+    if len(user_input) == 0:
+        st.warning("Enter A Prompt")
+    else:
+        chat(user_input)
+    
